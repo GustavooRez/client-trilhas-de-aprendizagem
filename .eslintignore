@@ -1,0 +1,5 @@
+dist
+node_modules
+tests
+src/routers/index.ts
+src/app.ts
