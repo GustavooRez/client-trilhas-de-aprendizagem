@@ -100,10 +100,11 @@ function Login() {
               }}
             ></TextField>
             <Button
+              style={{backgroundColor: "#FFC701"}}
               type="button"
               variant="contained"
               fullWidth
-              color="primary"
+              color="secondary"
               size="large"
               className="mb-3 mb-md-4 mt-4"
               onClick={() => onSubmit()}
@@ -112,11 +113,10 @@ function Login() {
             </Button>
             <Link href="/criar-usuario">
               <Button
-                style={{backgroundColor: "#FFC701"}}
                 type="button"
                 variant="contained"
                 fullWidth
-                color="secondary"
+                color="primary"
                 size="large"
                 className="mb-3 mb-md-4 mt-4"
               >
