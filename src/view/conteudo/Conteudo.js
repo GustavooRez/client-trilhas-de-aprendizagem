@@ -214,7 +214,7 @@ export default function Conteudo() {
                       variant="contained"
                       fullWidth
                       color={userContent === true ? userComplete === true ? "primary" : "primary" : "secondary"}
-                      style={userContent === true ? userComplete === true ? {backgroundColor: "green"} : "primary" : "secondary"}
+                      style={userContent === true ? userComplete === true ? {backgroundColor: "green"} : {"":""} : {"":""}}
                       size="large"
                       className="mb-3 mb-md-4 mt-4"
                       onClick={() => resgistrarCurso()}
