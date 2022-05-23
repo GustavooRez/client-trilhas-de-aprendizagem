@@ -55,7 +55,7 @@ export default function Trilhas() {
                   <div className="card boxItens">
                     <div className="card-body text-center">
                       <h4 className="card-title">
-                        {trilha.titulo} - {trilha.codigo}
+                        {trilha.titulo}
                       </h4>
                       <h5 className="card-text">{trilha.codigo}</h5>
                     </div>
