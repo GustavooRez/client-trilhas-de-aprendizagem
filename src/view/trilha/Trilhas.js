@@ -54,10 +54,10 @@ export default function Trilhas() {
                 <div className="p-1 col-4" onMouseOver={MouseOver} onClick={() => navigate(`/trilha/${trilha.id}`)}>
                   <div className="card boxItens">
                     <div className="card-body text-center">
-                      <h5 className="card-title">
+                      <h4 className="card-title">
                         {trilha.titulo} - {trilha.codigo}
-                      </h5>
-                      <p className="card-text">{trilha.descricao}</p>
+                      </h4>
+                      <h5 className="card-text">{trilha.codigo}</h5>
                     </div>
                   </div>
                 </div>
