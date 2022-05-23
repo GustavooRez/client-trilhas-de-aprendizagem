@@ -36,6 +36,8 @@ export default function ConteudosUsuarios() {
   }, []);
 
   function searchUsers(valueContent) {
+    setUsuarioSelected(false)
+    setRequisitionUser(false)
     axios
       .get(`${process.env.REACT_APP_API_URL}/contents/${valueContent}/student-users`, {
         headers: {
@@ -57,6 +59,9 @@ export default function ConteudosUsuarios() {
   const handleChangeConteudos = (event) => {
     setConteudoSelected(event.value);
     searchUsers(event.value)
+    if(usuarioSelected !== false){
+      searchUser(event.value , usuarioSelected)
+    }
   };
 
   const handleChangeUsuarios = (event) => {
@@ -133,7 +138,7 @@ export default function ConteudosUsuarios() {
       </Container>
       <Container className="d-flex align-items-center">
         {requisition === true ? (
-          <div style={{ width: "50%", padding: "0 2%" }}>
+          <div style={{ width: "50%", padding: "0 2% 0 0" }}>
             <InputLabel style={{ textAlign: "left" }} id="label-trilha">
               Seus conteúdos
             </InputLabel>
@@ -163,7 +168,7 @@ export default function ConteudosUsuarios() {
           ""
         )}
       </Container>
-      <Container>
+      <Container className="pt-3">
         
         {requisitionUser !== false ? (
           requisitionUser === 0 ? (
