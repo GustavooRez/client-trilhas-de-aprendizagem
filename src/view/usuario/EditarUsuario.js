@@ -130,7 +130,7 @@ export default function EditarUsuario() {
       <Container component="main" maxWidth="xs">
         <div className="mt-3 mt-md-5">
           <div className="text-center">
-            <Typography component="h1" variant="h4">
+            <Typography component="h1" variant="h4" className="font-weight-bold">
               Editar usuario
             </Typography>
             {status !== true ? (

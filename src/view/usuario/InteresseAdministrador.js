@@ -55,7 +55,7 @@ export default function InteresseAdministrador() {
                 alt="logo"
               />
             </div>
-            <Typography component="h1" variant="h4">
+            <Typography component="h1" variant="h4" className="font-weight-bold">
               Formulário de interesse
             </Typography>
             {status !== true ? (

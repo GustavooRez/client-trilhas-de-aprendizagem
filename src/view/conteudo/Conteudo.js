@@ -15,6 +15,7 @@ export default function Conteudo() {
   let [prerequisito, setPreRequisito] = React.useState();
   let [requisition, setRequisition] = React.useState();
   let [userContent, setUserContent] = React.useState(null);
+  let [userComplete, setUserComplete] = React.useState(null);
   var [classStatus, setClassStatus] = useState("");
   var [status, setStatus] = useState(true);
   const [show, setShow] = useState(false);
@@ -60,6 +61,11 @@ export default function Conteudo() {
       )
       .then((datas) => {
         if (datas.data.code === 200) {
+          if(datas.data.completo === 1){
+            setUserComplete(true);
+          } else{
+            setUserComplete(false);
+          }
           setUserContent(true);
         } else {
           setUserContent(false);
@@ -87,6 +93,7 @@ export default function Conteudo() {
             setStatus(res.data.message);
             setUserContent(true);
             setClassStatus("success");
+            setUserComplete(false);
             setTimeout(() => {
               setStatus(true);
             }, 5000);
@@ -103,17 +110,17 @@ export default function Conteudo() {
   }
 
   function handleConfirm() {
-    axios.delete(`${process.env.REACT_APP_API_URL}/contents/${id}`,
-    {
-      headers: {
-        Authorization: localStorage.getItem("accesstoken"),
-      },
-    }
-    ).then((res) => {
-      if(res.data.status === 200){
-        return navigate("/conteudos")
-      }
-    });
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/contents/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("accesstoken"),
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          return navigate("/conteudos");
+        }
+      });
   }
 
   const handleClose = () => setShow(false);
@@ -126,7 +133,7 @@ export default function Conteudo() {
           <div className="mt-3 mt-md-5">
             <div>
               <Typography
-                className="my-5 text-center"
+                className="my-5 text-center font-weight-bold"
                 component="h1"
                 variant="h2"
               >
@@ -142,28 +149,32 @@ export default function Conteudo() {
               ) : (
                 ""
               )}
-              <h5>
-                <strong>Código:</strong> {conteudo.codigo}
-              </h5>
-              <h5>
-                <strong>Descrição:</strong> {conteudo.descricao}
-              </h5>
-              <h5>
-                <strong>Docente:</strong>{" "}
-                {docente.length === 0 ? "Nenhum" : docente.join(", ")}
-              </h5>
-              <h5>
-                <strong>Carga horária teórica:</strong>{" "}
-                {conteudo.ch_teorica === "" ? 0 : conteudo.ch_teorica} horas
-              </h5>
-              <h5>
-                <strong>Carga horária prática:</strong>{" "}
-                {conteudo.ch_pratica === "" ? 0 : conteudo.ch_pratica} horas
-              </h5>
-              <h5>
-                <strong>Pre requisitos:</strong>{" "}
-                {prerequisito.length === 0 ? "Nenhum" : prerequisito.join(", ")}
-              </h5>
+              <div className="boxItens p-3">
+                <h5>
+                  <strong>Código:</strong> {conteudo.codigo}
+                </h5>
+                <h5>
+                  <strong>Descrição:</strong> {conteudo.descricao}
+                </h5>
+                <h5>
+                  <strong>Docente:</strong>{" "}
+                  {docente.length === 0 ? "Nenhum" : docente.join(", ")}
+                </h5>
+                <h5>
+                  <strong>Carga horária teórica:</strong>{" "}
+                  {conteudo.ch_teorica === "" ? 0 : conteudo.ch_teorica} horas
+                </h5>
+                <h5>
+                  <strong>Carga horária prática:</strong>{" "}
+                  {conteudo.ch_pratica === "" ? 0 : conteudo.ch_pratica} horas
+                </h5>
+                <h5>
+                  <strong>Pre requisitos:</strong>{" "}
+                  {prerequisito.length === 0
+                    ? "Nenhum"
+                    : prerequisito.join(", ")}
+                </h5>
+              </div>
 
               {userType === "Admin" ? (
                 <div className="d-flex">
@@ -202,12 +213,13 @@ export default function Conteudo() {
                       type="button"
                       variant="contained"
                       fullWidth
-                      color={userContent === true ? "primary" : "secondary"}
+                      color={userContent === true ? userComplete === true ? "primary" : "primary" : "secondary"}
+                      style={userContent === true ? userComplete === true ? {backgroundColor: "green"} : "primary" : "secondary"}
                       size="large"
                       className="mb-3 mb-md-4 mt-4"
                       onClick={() => resgistrarCurso()}
                     >
-                      {userContent === true ? "Inscrito" : "Inscrever-se"}
+                      {userContent === true ? userComplete === true ? "Concluído" : "Em curso": "Inscrever-se"}
                     </Button>
                   </div>
                 ) : (
@@ -223,45 +235,50 @@ export default function Conteudo() {
         ""
       )}
       {userType === "Admin" ? (
-      <Modal
-        size="md"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header>
-          <Modal.Title id="contained-modal-title-vcenter">Excluir</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
-            <h5>
-              Você realmente deseja excluir esse conteúdo? Ele será
-              permanentemente excluido!
-            </h5>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            onClick={handleClose}
-          >
-            Cancelar
-          </Button>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            onClick={handleConfirm}
-          >
-            Confirmar
-          </Button>
-        </Modal.Footer>
-      </Modal>) : ("") }
+        <Modal
+          size="md"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Excluir
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <h5>
+                Você realmente deseja excluir esse conteúdo? Ele será
+                permanentemente excluido!
+              </h5>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              onClick={handleClose}
+            >
+              Cancelar
+            </Button>
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              onClick={handleConfirm}
+            >
+              Confirmar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

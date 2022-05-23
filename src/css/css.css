@@ -1,12 +1,29 @@
-.nav-link{
-    color:white !important
+.nav-link {
+  color: white !important;
 }
-.data-rr-ui-dropdown-item{
-    color: black;
+.data-rr-ui-dropdown-item {
+  color: black;
 }
-body{
-    background-color: #F0F2F5;
+body {
+  background-color: #f0f2f5;
 }
-.telaConteudoTrilha h5{
-    padding: 1% 0;
+.telaConteudoTrilha h5 {
+  padding: 1% 0;
+}
+.boxItens {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 2px 1px -1px rgb(0 0 0 / 12%) !important;
+  border: 1px solid #ececec !important;
+  border-radius: 10px;
+}
+.boxItens2 {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%) !important;
+    border: 1px solid #ececec !important;
+    border-radius: 10px;
+}
+.linhaHorizontalSimples {
+  width: 100%;
+  border: 1px solid #000;
+  margin: 5% 0 20% 0;
+  opacity: 0.5;
 }

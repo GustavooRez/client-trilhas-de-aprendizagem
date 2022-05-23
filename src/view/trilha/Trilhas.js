@@ -38,18 +38,21 @@ export default function Trilhas() {
       <Container component="main" maxWidth="xs">
         <div className="mt-3 mt-md-5">
           <div className="text-center">
-            <Typography className="mb-5" component="h1" variant="h4">
+            <Typography className="mb-5 font-weight-bold" component="h1" variant="h4">
               Trilhas
             </Typography>
           </div>
         </div>
       </Container>
       <Container>
+        <div className="pt-2 pb-5 text-center">
+          <h5>Essas são as trilhas disponíveis no sistema!</h5><h5>Trilhas são um conjunto de conteúdos que permitem, após a inscrição, a realização e conclusão de seus conteúdos!</h5>  
+        </div>
         <div className="row">
           {requisition === true
             ? trilhas.map((trilha) => (
                 <div className="p-1 col-4" onMouseOver={MouseOver} onClick={() => navigate(`/trilha/${trilha.id}`)}>
-                  <div className="card">
+                  <div className="card boxItens">
                     <div className="card-body text-center">
                       <h5 className="card-title">
                         {trilha.titulo} - {trilha.codigo}

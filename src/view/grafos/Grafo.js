@@ -17,9 +17,7 @@ function Grafo() {
   const [conteudoSelected, setConteudoSelect] = useState([]);
   const [trilhaSelected, setTrilhaSelected] = React.useState([]);
   const [usuarioSimular, setUsuarioSimular] = React.useState([]);
-  const [usuarioSimularSelected, setUsuarioSimularSelected] = React.useState(
-    []
-  );
+  const [usuarioSimularSelected, setUsuarioSimularSelected] = React.useState([]);
   let colorNode,
     preRequisitoCompleto,
     borderNode,
@@ -39,7 +37,8 @@ function Grafo() {
     display: "inline-block",
     height: "3rem",
     width: "3rem",
-    border: "1px solid #000000",
+    boxShadow: "0 1px 3px 0 rgb(0 0 0 / 20%) !important",
+    border: "1px solid #ececec !important",
     backgroundColor: "#1BD81B",
   };
   const bolaVerde = {
@@ -47,7 +46,8 @@ function Grafo() {
     display: "inline-block",
     height: "3rem",
     width: "3rem",
-    border: "1px solid #000000",
+    boxShadow: "0 1px 3px 0 rgb(0 0 0 / 20%) !important",
+    border: "1px solid #ececec !important",
     backgroundColor: "#FFC701",
   };
   const bolaCinza = {
@@ -55,7 +55,8 @@ function Grafo() {
     display: "inline-block",
     height: "3rem",
     width: "3rem",
-    border: "1px solid #000000",
+    boxShadow: "0 1px 3px 0 rgb(0 0 0 / 20%) !important",
+    border: "1px solid #ececec !important",
     backgroundColor: "#C4C4C4",
   };
 
@@ -202,7 +203,7 @@ function Grafo() {
     graphData.push({
       data: {
         type: "star",
-        id: trilhaGraph.id,
+        id: `start_${trilhaGraph.id}`,
         label: trilhaGraph.codigo,
         color: "#141460",
       },
@@ -334,13 +335,14 @@ function Grafo() {
       ) : (
         ""
       )}
-      <div style={{ padding: "0 0 1% 0", width: "250px" }}></div>
       <div>
         {requisition === true ? (
-          <div>
+          <div className="pt-4 px-3">
             <div
+              className="boxItens2"
               style={{
-                border: "1px solid",
+                borderOpacity: "0.7",
+                borderRadius: "10px",
                 backgroundColor: "#f5f6fe",
               }}
             >
@@ -414,7 +416,7 @@ function Grafo() {
             <div className="d-flex align-items-center justify-content-around pt-3">
               <div className="d-flex align-items-center">
                 <div style={bolaVerde}></div>{" "}
-                <div className="pl-2">Conteúdo concluida</div>
+                <div className="pl-2">Conteúdo concluido</div>
               </div>
               <div className="d-flex align-items-center">
                 <div style={bolaAmarela}></div>{" "}
@@ -427,9 +429,10 @@ function Grafo() {
             </div>
           </div>
         ) : (
-          <h1 className="pt-5" style={{ textAlign: "center" }}>
-            Por favor, realize a filtragem da trilha
-          </h1>
+          <div style={{ textAlign: "center", paddingTop: "10%" }}>
+            <h3>As trilhas de aprendizagem oferecem uma visualização via grafo dos conteúdos das trilhas!</h3> 
+            <h4 className="pt-2">Por favor, realize a filtragem para possibilitar uma visão personalizada das trilhas! </h4>
+          </div>
         )}
       </div>
       <Modal
@@ -487,8 +490,8 @@ function Grafo() {
             ) : (
               ""
             )}
-            <div className="col-3">
-              <div className="d-flex align-items-center pt-2">
+            <div className="col-3 d-flex align-items-center">
+              <div className="d-flex align-items-center pt-4">
                 <InputLabel
                   style={{ textAlign: "left" }}
                   className="m-0"

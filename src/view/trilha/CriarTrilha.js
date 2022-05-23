@@ -45,11 +45,11 @@ function CriarTrilha() {
       });
   }
   return (
-    <div>
+    <div style={{paddingTop: "2%"}}>
       <Container component="main" maxWidth="xs">
         <div className="mt-3 mt-md-5">
           <div className="text-center">
-            <Typography  className="mb-5" component="h1" variant="h4">
+            <Typography component="h1" variant="h4" className="font-weight-bold mb-5">
               Criar trilha
             </Typography>
             {status !== true ? (

@@ -64,6 +64,7 @@ function Login() {
               ""
             )}
             <Typography
+              className="font-weight-bold"
               component="h1"
               variant="h6"
             ></Typography>

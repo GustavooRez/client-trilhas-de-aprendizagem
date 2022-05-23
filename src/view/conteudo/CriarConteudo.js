@@ -149,7 +149,7 @@ function CriarConteudo() {
       <Container component="main" maxWidth="xs">
         <div className="mt-3 mt-md-5">
           <div className="text-center">
-            <Typography className="mb-5" component="h1" variant="h4">
+            <Typography className="mb-5 font-weight-bold" component="h1" variant="h4">
               Criar conteúdo
             </Typography>
             {status !== true ? (

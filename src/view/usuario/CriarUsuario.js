@@ -115,7 +115,7 @@ export default function CriarUsuario() {
                 alt="logo"
               />
             </div>
-            <Typography component="h1" variant="h4">
+            <Typography component="h1" variant="h4" className="font-weight-bold">
               Criar usuario
             </Typography>
             {status !== true ? (

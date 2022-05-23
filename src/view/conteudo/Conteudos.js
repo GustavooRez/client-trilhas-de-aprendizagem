@@ -87,13 +87,16 @@ export default function Conteudos() {
       <Container component="main" maxWidth="xs">
         <div className="mt-3 mt-md-5">
           <div className="text-center">
-            <Typography className="mb-5" component="h1" variant="h4">
+            <Typography className="mb-5 font-weight-bold" component="h1" variant="h4">
               Conteúdos
             </Typography>
           </div>
         </div>
       </Container>
       <Container>
+        <div  className="pt-2 pb-5 text-center">
+          <h5>Esses são os conteúdos disponíveis no sistema!</h5><h5>Conteúdos são um conjunto de valores, conhecimentos, habilidades e atitudes que irão gerar um aprendizado ao estudante!</h5><h5>O estudante poderá realizar a inscrição em um curso caso possua os requisitos mínimos e poderá acessar o seu conteúdo!</h5>  
+        </div>
         <div style={{width: "30%"}}>
           <InputLabel style={{ textAlign: "left" }} id="label-trilha">
             Trilha
@@ -113,7 +116,7 @@ export default function Conteudos() {
                   onMouseOver={MouseOver}
                   onClick={() => navigate(`/conteudo/${conteudo.id}`)}
                 >
-                  <div className="card" style={{minHeight: "8rem"}}>
+                  <div className="card boxItens" style={{minHeight: "8rem"}}>
                     <div className="card-body text-center">
                       <h5 className="card-title">
                         {conteudo.titulo}

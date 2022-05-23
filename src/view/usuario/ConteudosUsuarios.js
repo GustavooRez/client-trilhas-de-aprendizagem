@@ -33,11 +33,15 @@ export default function ConteudosUsuarios() {
         setTrilha(trilhas);
       });
     axios
-      .get(`${process.env.REACT_APP_API_URL}/users`, {
-        headers: {
-          Authorization: localStorage.getItem("accesstoken"),
-        },
-      })
+      .post(
+        `${process.env.REACT_APP_API_URL}/users/type`,
+        { tipo_usuario: "Aluno" },
+        {
+          headers: {
+            Authorization: localStorage.getItem("accesstoken"),
+          },
+        }
+      )
       .then((users) => {
         users.data.forEach((user) => {
           usuarios.push({
@@ -81,17 +85,17 @@ export default function ConteudosUsuarios() {
   const handleChangeConteudos = (event) => {
     setConteudoSelected(event.value);
     if (usuarioSelected !== false) {
-        setRequisitionUser(false)
-      searchUser(event.value,usuarioSelected);
+      setRequisitionUser(false);
+      searchUser(event.value, usuarioSelected);
     }
   };
 
   const handleChangeUsuarios = (event) => {
     setUsuarioSelected(event.value);
-    searchUser(conteudoSelected,event.value);
+    searchUser(conteudoSelected, event.value);
   };
 
-  function searchUser(content,user) {
+  function searchUser(content, user) {
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/contents-users-completed`,
@@ -131,7 +135,7 @@ export default function ConteudosUsuarios() {
       )
       .then((res) => {
         if (res.data.code === 200) {
-          searchUser(conteudoSelected,usuarioSelected);
+          searchUser(conteudoSelected, usuarioSelected);
           setStatus(res.data.message);
           setTimeout(() => {
             setStatus(false);
@@ -145,7 +149,11 @@ export default function ConteudosUsuarios() {
       <Container component="main" maxWidth="xs">
         <div className="mt-3 mt-md-5">
           <div className="text-center">
-            <Typography className="mb-5" component="h1" variant="h4">
+            <Typography
+              className="mb-5 font-weight-bold"
+              component="h1"
+              variant="h4"
+            >
               Conteúdos dos usuários
             </Typography>
             {status !== false ? (
