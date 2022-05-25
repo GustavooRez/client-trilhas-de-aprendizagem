@@ -19,7 +19,7 @@ export default function Conteudos() {
   }
 
   React.useEffect(() => {
-    if(userType === "Admin"){
+    if(userType !== "Aluno"){
       axios
         .get(`${process.env.REACT_APP_API_URL}/trails`, {
           headers: {

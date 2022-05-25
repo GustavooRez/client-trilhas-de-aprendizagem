@@ -9,8 +9,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Select from "react-select";
-import InputLabel from "@material-ui/core/InputLabel";
 import Alert from "@mui/material/Alert";
 const axios = require("axios").default;
 
@@ -25,22 +23,10 @@ export default function EditarUsuario() {
     email: "",
     senha: ""
   });
-  const [trilhas, setTrilha] = React.useState([]);
-  const [trilhasUser, setTrilhaUser] = React.useState([]);
   var [classStatus, setClassStatus] = useState("");
-  const [trilhaSelected, setTrilhaSelected] = React.useState([]);
   var [status, setStatus] = useState(true);
 
   React.useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/trails`).then((datas) => {
-      datas.data.forEach((data) => {
-        trilhas.push({
-          value: data.id,
-          label: data.titulo,
-        });
-      });
-      setTrilha(trilhas);
-    });
     axios
       .get(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
         headers: {
@@ -49,14 +35,6 @@ export default function EditarUsuario() {
       })
       .then((resUser) => {
         resUser.data.aniversario = new Date(resUser.data.aniversario);
-        resUser.data.newTrilha.forEach((trilha) => {
-          trilhasUser.push({
-            value: trilha.id,
-            label: trilha.titulo,
-          });
-        });
-        setTrilhaSelected(trilhasUser)
-        setTrilhaUser(trilhasUser);
         setInputValues({
           nome: resUser.data.usuario.nome,
           aniversario: new Date(resUser.data.usuario.aniversario),
@@ -66,15 +44,7 @@ export default function EditarUsuario() {
         setUser(true);
       });
   }, []);
-
-  const handleChangeTrilha = (event) => {
-    let trilhasUser = [];
-    event.forEach((evento) => {
-      trilhasUser.push(evento.value);
-    });
-
-    setTrilhaSelected(trilhasUser);
-  };
+  
   const handleOnChange = useCallback((event) => {
     const { name, value } = event.target;
     setInputValues({ ...inputValues, [name]: value });
@@ -100,8 +70,7 @@ export default function EditarUsuario() {
             .join("/"),
           telefone: inputValues.telefone,
           email: inputValues.email,
-          tipo_usuario: userType,
-          trilhas: trilhaSelected,
+          tipo_usuario: userType
         },
         {
           headers: {
@@ -191,27 +160,6 @@ export default function EditarUsuario() {
               onChange={handleOnChange}
               value={user !== false ? inputValues.email : ""}
             ></TextField>
-            {userType === "Aluno" ? (
-              user !== false ? (
-                <div className="mt-3" id="trilha_div">
-                  <InputLabel style={{ textAlign: "left" }} id="label-trilha">
-                    Trilha
-                  </InputLabel>
-                  <Select
-                    defaultValue={trilhasUser}
-                    isMulti
-                    labelId="label-trilha"
-                    options={trilhas}
-                    placeholder="Selecione"
-                    onChange={handleChangeTrilha}
-                  />
-                </div>
-              ) : (
-                ""
-              )
-            ) : (
-              ""
-            )}
             <Button
               type="button"
               variant="contained"

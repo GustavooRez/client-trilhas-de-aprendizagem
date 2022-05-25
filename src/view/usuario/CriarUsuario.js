@@ -26,31 +26,9 @@ export default function CriarUsuario() {
     codigo: "",
   });
   const [userTypeSelect, setUserTypeSelect] = React.useState([]);
-  const [trilhas, setTrilha] = React.useState([]);
-  const [trilhaSelected, setTrilhaSelected] = React.useState([]);
   var [status, setStatus] = useState(true);
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/trails`).then((datas) => {
-      datas.data.forEach((data) => {
-        trilhas.push({
-          value: data.id,
-          label: data.titulo,
-        });
-      });
-      setTrilha(trilhas);
-    });
-  }, []);
-
-  const handleChangeTrilha = (event) => {
-    let trilhasUser = [];
-    event.forEach((evento) => {
-      trilhasUser.push(evento.value);
-    });
-
-    setTrilhaSelected(trilhasUser);
-  };
   const handleOnChange = useCallback((event) => {
     const { name, value } = event.target;
     setInputValues({ ...inputValues, [name]: value });
@@ -65,9 +43,7 @@ export default function CriarUsuario() {
   const handleSelectUserType = (event) => {
     if (event.value === "professor") {
       document.getElementById("codigo_professor_div").style.display = "";
-      document.getElementById("trilha_div").style.display = "none";
     } else {
-      document.getElementById("trilha_div").style.display = "";
       document.getElementById("codigo_professor_div").style.display = "none";
     }
     setUserTypeSelect(event.value);
@@ -87,8 +63,7 @@ export default function CriarUsuario() {
         email: inputValues.email,
         senha: inputValues.senha,
         tipo_usuario: userTypeSelect,
-        codigo: inputValues.codigo,
-        trilhas: trilhaSelected,
+        codigo: inputValues.codigo
       })
       .then((res) => {
         if (res.data.status === 200) {
@@ -209,18 +184,6 @@ export default function CriarUsuario() {
                 name="codigo"
                 onChange={handleOnChange}
               ></TextField>
-            </div>
-            <div style={{ display: "none" }} className="mt-3" id="trilha_div">
-              <InputLabel style={{ textAlign: "left" }} id="label-trilha">
-                Trilha
-              </InputLabel>
-              <Select
-                isMulti
-                labelId="label-trilha"
-                options={trilhas}
-                placeholder="Selecione"
-                onChange={handleChangeTrilha}
-              />
             </div>
             <Button
               type="button"

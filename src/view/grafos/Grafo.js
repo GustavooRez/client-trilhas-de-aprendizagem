@@ -61,7 +61,7 @@ function Grafo() {
   };
 
   React.useEffect(() => {
-    if (userType === "Admin") {
+    if (userType !== "Aluno") {
       axios
         .get(`${process.env.REACT_APP_API_URL}/trails`, {
           headers: {
@@ -75,32 +75,34 @@ function Grafo() {
               label: data.titulo,
             });
           });
-          axios
-            .post(
-              `${process.env.REACT_APP_API_URL}/users/type`,
-              {
-                tipo_usuario: "Aluno",
-              },
-              {
-                headers: {
-                  Authorization: localStorage.getItem("accesstoken"),
+          if(userType === "Admin"){
+            axios
+              .post(
+                `${process.env.REACT_APP_API_URL}/users/type`,
+                {
+                  tipo_usuario: "Aluno",
                 },
-              }
-            )
-            .then((usuarios) => {
-              usuarioSimular.push({
-                value: undefined,
-                label: " "
-              });
-              usuarios.data.forEach((data) => {
+                {
+                  headers: {
+                    Authorization: localStorage.getItem("accesstoken"),
+                  },
+                }
+              )
+              .then((usuarios) => {
                 usuarioSimular.push({
-                  value: data.id,
-                  label: data.nome,
+                  value: undefined,
+                  label: " "
                 });
+                usuarios.data.forEach((data) => {
+                  usuarioSimular.push({
+                    value: data.id,
+                    label: data.nome,
+                  });
+                });
+                setTrilha(trilhas);
+                setUsuarioSimular(usuarioSimular);
               });
-              setTrilha(trilhas);
-              setUsuarioSimular(usuarioSimular);
-            });
+          }
         });
     } else {
       axios
@@ -188,17 +190,17 @@ function Grafo() {
               .then((contentsSearched) => {
                 if (contentsSearched.data.status === 200) {
                   bestTrail = contentsSearched.data.conteudo;
-                  searchGraph2(bestTrail, dataContent, user);
+                  searchGraph2(bestTrail, dataContent, user, valueConteudo);
                 }
               });
           } else {
-            searchGraph2(bestTrail, dataContent, user);
+            searchGraph2(bestTrail, dataContent, user, undefined);
           }
         });
     }
   }
 
-  function searchGraph2(bestTrail, dataContent, user) {
+  function searchGraph2(bestTrail, dataContent, user, contentFinal) {
     const trilhaGraph = dataContent.data.trilha;
     graphData.push({
       data: {
@@ -223,10 +225,14 @@ function Grafo() {
           conteudos.push(content);
           colorNode = "";
           borderNode = "";
-          if (bestTrail.includes(content.id)) {
-            borderNode = "red";
-          } else {
-            borderNode = "white";
+          if(content.id === contentFinal){
+            borderNode = "blue";
+          }else{
+            if (bestTrail.includes(content.id)) {
+              borderNode = "red";
+            } else {
+              borderNode = "white";
+            }
           }
           if (user.data.userContents.includes(content.codigo)) {
             colorNode = "#FFC701";

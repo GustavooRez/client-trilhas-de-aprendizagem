@@ -12,6 +12,7 @@ const axios = require("axios").default;
 
 export default function EditarConteudo() {
   const { id } = useParams();
+  const userId = localStorage.getItem("userId");
   const [content, setContent] = React.useState(false);
   const [inputValues, setInputValues] = useState({
     titulo: "",
@@ -205,6 +206,7 @@ export default function EditarConteudo() {
           docentes: docenteSelected,
           trilhas: trilhaSelected,
           pre_requisitos: preRequisitosSelected,
+          id_usuario: userId
         },
         {
           headers: {

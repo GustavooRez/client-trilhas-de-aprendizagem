@@ -9,6 +9,7 @@ const axios = require("axios").default;
 
 function CriarTrilha() {
   var [status, setStatus] = useState(true);
+  const userId = localStorage.getItem("userId");
   const [inputValues, setInputValues] = useState({
     titulo: "",
     descricao: "",
@@ -29,6 +30,7 @@ function CriarTrilha() {
           titulo: inputValues.titulo,
           descricao: inputValues.descricao,
           codigo: inputValues.codigo,
+          id_usuario: userId
         },
         {
           headers: {
@@ -38,7 +40,7 @@ function CriarTrilha() {
       )
       .then((res) => {
         if (res.data.status === 200) {
-          return navigate("/");
+          return navigate(`/trilha/${res.data.trilha.id}`);
         } else {
           setStatus(res.data.error);
         }

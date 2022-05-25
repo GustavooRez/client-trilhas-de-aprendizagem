@@ -137,7 +137,7 @@ export default function Trilha() {
                 <h5>
                   <strong>Descrição:</strong> {trilha.descricao}
                 </h5>
-                {userType === "Admin" ? (
+                {trilha.id_criador === parseInt(userId) ||  userType === "Admin" ? (
                   <div className="d-flex">
                     <div className="col-6">
                       <Link href={`/editar-trilha/${id}`}>
@@ -195,7 +195,7 @@ export default function Trilha() {
       ) : (
         ""
       )}
-      {userType === "Admin" ? (
+      {/* {trilha.id_criador === parseInt(userId) ? ( */}
         <Modal
           size="md"
           aria-labelledby="contained-modal-title-vcenter"
@@ -237,9 +237,9 @@ export default function Trilha() {
             </Button>
           </Modal.Footer>
         </Modal>
-      ) : (
+      {/* ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 }

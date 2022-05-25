@@ -10,6 +10,8 @@ import Alert from "@mui/material/Alert";
 const axios = require("axios").default;
 
 function CriarConteudo() {
+  const userId = localStorage.getItem("userId");
+  var userType = localStorage.getItem("usertype");
   const [inputValues, setInputValues] = useState({
     titulo: "",
     descricao: "",
@@ -29,7 +31,7 @@ function CriarConteudo() {
 
   React.useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/trails`, {
+      .get(userType === "Admin" ? `${process.env.REACT_APP_API_URL}/trails` : `${process.env.REACT_APP_API_URL}/trails/users/${userId}`, {
         headers: {
           Authorization: localStorage.getItem("accesstoken"),
         },
@@ -111,6 +113,7 @@ function CriarConteudo() {
           docentes: docenteSelected,
           trilhas: trilhaSelected,
           pre_requisitos: preRequisitosSelected,
+          id_usuario: userId
         },
         {
           headers: {
@@ -120,7 +123,7 @@ function CriarConteudo() {
       )
       .then((res) => {
         if (res.data.status === 200) {
-          return navigate("/");
+          return navigate(`/conteudo/${res.data.conteudo.id}`);
         } else {
           setStatus(res.data.error);
         }

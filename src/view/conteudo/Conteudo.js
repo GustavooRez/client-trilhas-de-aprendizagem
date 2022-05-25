@@ -176,7 +176,7 @@ export default function Conteudo() {
                 </h5>
               </div>
 
-              {userType === "Admin" ? (
+              {conteudo.id_criador === parseInt(userId)  ||  userType === "Admin" ? (
                 <div className="d-flex">
                   <div className="col-6">
                     <Link href={`/editar-conteudo/${id}`}>
@@ -234,7 +234,6 @@ export default function Conteudo() {
       ) : (
         ""
       )}
-      {userType === "Admin" ? (
         <Modal
           size="md"
           aria-labelledby="contained-modal-title-vcenter"
@@ -276,9 +275,6 @@ export default function Conteudo() {
             </Button>
           </Modal.Footer>
         </Modal>
-      ) : (
-        ""
-      )}
     </div>
   );
 }
